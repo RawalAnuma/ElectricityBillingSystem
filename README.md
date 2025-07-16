@@ -2,7 +2,6 @@
  
  A Java-based billing system that asks for each customer's name, house number, and units of electricity used. Based on  unit slabs (e.g. 10 units = Rs. 100, 20 units = Rs. 250, etc.), the program calculates the total bill for each customer. After processing 3–5 houses, it prints the bill for each total amount and customer name with the house number and identifies the highest paying customer along with their house number.
 
-## Features
 
 ## Unit slab
 | Units Consumed      | Price (Rs.)         | Notes                              |
@@ -10,6 +9,8 @@
 | 1 – 10              | 100                 | Flat rate for first 10 units       |
 | 11 – 20             | 250                 | Flat rate for first 20 units       |
 | 21 and above        | 250 + Rs. 2/unit    | Rs. 2 for each unit after 20 units |
+
+## Features
 
 - Maintain customer details: {name, house number, electricity units consumed}
 
