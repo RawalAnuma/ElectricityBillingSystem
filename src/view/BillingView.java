@@ -13,22 +13,27 @@ public class BillingView{
             System.out.println("Enter 1: Calculate Bill");
             System.out.println("Enter 2: Show highest bill");
             System.out.println("Enter 3: Exit");
-            int option = Integer.parseInt(scanner.nextLine());
+            try{
+                int option = Integer.parseInt(scanner.nextLine());
 
-            if(option < 1 || option > 3){
-                System.out.println("Invalid option, please enter 1/2/3");
-            } else if(option == 1){
-                billingHandler.handleCalculateBill();
 
-            }else if(option == 2){
-                billingHandler.handleHighestBill();
+                if(option == 1){
+                    billingHandler.handleCalculateBill();
 
-            }else if(option == 3){
-                System.out.println("Thank you for using the billing system!");
-                break;
-            }else{
-                System.out.println("Invalid option, please enter 1/2/3");
+                }else if(option == 2){
+                    billingHandler.handleHighestBill();
+
+                }else if(option == 3){
+                    System.out.println("Thank you for using the billing system!");
+                    break;
+                }else{
+                    System.out.println("Invalid option, please enter 1/2/3");
+                }
+
+            } catch (RuntimeException e) {
+                System.out.println("Please enter a valid choice only");
             }
+
         }
     }
 }
