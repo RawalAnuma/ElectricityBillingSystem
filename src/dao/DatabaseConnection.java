@@ -16,6 +16,5 @@ public class DatabaseConnection {
         conn = DriverManager.getConnection(path+dbName, userName, password);
         return conn;
     }
-
 }
 
