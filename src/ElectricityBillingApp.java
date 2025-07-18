@@ -1,6 +1,7 @@
 import view.BillingView;
 
-public class ElectricityBilling {
+public class
+ElectricityBillingApp {
     public static void main(String[] args) {
         BillingView billingView = new BillingView();
         billingView.showBillingView();
