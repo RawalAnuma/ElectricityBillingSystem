@@ -71,7 +71,7 @@ public class BillRecordsDAO {
         String query = "SELECT customer.customername, customer.housenumber, customer.unitsconsumed, billrecords.billamount, billrecords.billdate " +
                 "FROM billrecords " +
                 "JOIN customer ON billrecords.customerid = customer.customerid " +
-                "ORDER BY billrecords.billamount DESC LIMIT 1";
+                "ORDER BY billrecords.billamount DESC ";
         try {
             if (conn != null) {
                 PreparedStatement ps = conn.prepareStatement(query);
