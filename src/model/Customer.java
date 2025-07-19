@@ -13,7 +13,20 @@ public class Customer {
         this.unitsConsumed = unitsConsumed;
     }
 
+    public Customer(String customerName, int houseNumber, double unitsConsumed){
+        this.customerName = customerName;
+        this.houseNumber = houseNumber;
+        this.unitsConsumed = unitsConsumed;
+    }
 
+
+
+    public int getCustomerId(){
+        return customerId;
+    }
+    public void setCustomerId(int customerId){
+        this.customerId = customerId;
+    }
     public String getCustomerName(){
         return customerName;
     }

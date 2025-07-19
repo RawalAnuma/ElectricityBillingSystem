@@ -22,26 +22,40 @@ public class CustomerDAO {
         }
     }
 
-    public int insertCustomer(Customer customer){
+    public boolean insertCustomer(Customer customer){
         String query = "INSERT INTO customer(customername, housenumber, unitsconsumed) VALUES (?, ?, ?)";
-        int generatedId = -1; // Default value if insertion fails
         try {
             if (conn != null) {
-                PreparedStatement ps = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+                PreparedStatement ps = conn.prepareStatement(query);
                 ps.setString(1, customer.getCustomerName());
                 ps.setInt(2, customer.getHouseNumber());
                 ps.setDouble(3, customer.getUnitsConsumed());
                 ps.executeUpdate();
 
-                ResultSet rs = ps.getGeneratedKeys();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
+    public int getCustomerIdByDetails(String customerName, int houseNumber, double unitsConsumed) {
+        String query = "SELECT customerid FROM customer WHERE customername = ? AND housenumber = ? AND unitsconsumed = ?";
+        try {
+            if (conn != null) {
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.setString(1, customerName);
+                ps.setInt(2, houseNumber);
+                ps.setDouble(3, unitsConsumed);
+                ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
-                    generatedId = rs.getInt(1); // Get the generated key
+                    return rs.getInt("customerid");
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return generatedId;
+        return -1; // Return -1 if no customer found
     }
 
     public List<Customer> getAllCustomers(){

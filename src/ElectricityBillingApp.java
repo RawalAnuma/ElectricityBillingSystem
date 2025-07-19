@@ -1,8 +1,9 @@
-import view.BillingView;
+import view.MainView;
 
 public class ElectricityBillingApp {
     public static void main(String[] args) {
-        BillingView billingView = new BillingView();
-        billingView.showBillingView();
+        MainView mainView = new MainView();
+        mainView.showBillingView();
+
     }
 }
