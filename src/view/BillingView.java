@@ -1,39 +1,72 @@
 package view;
 
 
-import handler.BillingHandler;
+import controller.BillRecordsController;
+import controller.CustomerController;
 
 import java.util.Scanner;
 
 public class BillingView{
-    private BillingHandler billingHandler = new BillingHandler();
-    public void showBillingView(){
+    private static CustomerController customerController = new CustomerController();
+    private static BillRecordsController billRecordsController =  new BillRecordsController();
+    public static void handleCalculateBill(){
         Scanner scanner = new Scanner(System.in);
-        while(true){
-            System.out.println("Enter 1: Calculate Bill");
-            System.out.println("Enter 2: Show highest bill");
-            System.out.println("Enter 3: Exit");
+        String customerName;
+        int houseNumber;
+        double unitsConsumed;
+        System.out.println("Enter Customer Name: ");
+        customerName = scanner.nextLine();
+
+        while (true) {
             try{
-                int option = Integer.parseInt(scanner.nextLine());
-
-
-                if(option == 1){
-                    billingHandler.handleCalculateBill();
-
-                }else if(option == 2){
-                    billingHandler.handleHighestBill();
-
-                }else if(option == 3){
-                    System.out.println("Thank you for using the billing system!");
-                    break;
-                }else{
-                    System.out.println("Invalid option, please enter 1/2/3");
+                System.out.println("Enter House Number: ");
+                houseNumber = Integer.parseInt(scanner.nextLine());
+                if(houseNumber <= 0){
+                    System.out.println("House number must be a positive integer. Please try again.");
+                    continue;
                 }
-
-            } catch (RuntimeException e) {
-                System.out.println("Please enter a valid choice only");
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input for house number. Please enter a valid integer.");
             }
-
         }
+
+        while(true){
+            try{
+                System.out.println("Enter Units Consumed: ");
+                unitsConsumed = Double.parseDouble(scanner.nextLine());
+                if(unitsConsumed < 0){
+                    System.out.println("Units consumed cannot be negative. Please try again!");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input for units consumed. Please enter a valid number.");
+            }
+        }
+
+        try{
+            int customerId = customerController.getCustomerId(customerName, houseNumber, unitsConsumed);
+            if(customerId == -1) {
+                boolean isAdded = customerController.addCustomer(customerName, houseNumber, unitsConsumed);
+                if (!isAdded) {
+                    System.out.println("Error adding customer. Please try again.");
+                    return;
+                }
+                customerId = customerController.getCustomerId(customerName, houseNumber, unitsConsumed);
+            }
+            double billAmount = billRecordsController.generateBill(customerId, unitsConsumed);
+            System.out.println("\n---------Customer Bill Generated---------");
+            System.out.println("Bill Date       : " + java.time.LocalDate.now());
+            System.out.println("Customer Name   : " + customerName);
+            System.out.println("House Number    : " + houseNumber);
+            System.out.println("Units Consumed  : " + unitsConsumed);
+            System.out.println("Bill Amount     : Rs. " + billAmount);
+            System.out.println("-----------------------------------------\n");
+
+        } catch (Exception e) {
+            System.out.println("Error generating bill: " + e.getMessage());
+        }
+
     }
 }
