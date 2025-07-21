@@ -31,12 +31,13 @@ public class CustomerDAO {
                 ps.setInt(2, customer.getHouseNumber());
                 ps.setDouble(3, customer.getUnitsConsumed());
                 ps.executeUpdate();
+                return true;
 
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return true;
+        return false;
     }
 
     public int getCustomerIdByDetails(String customerName, int houseNumber, double unitsConsumed) {
