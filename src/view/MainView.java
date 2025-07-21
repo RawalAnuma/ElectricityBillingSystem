@@ -29,7 +29,7 @@ public class MainView {
                     System.out.println("Thank you for using the billing system!");
                     break;
                 }else{
-                    System.out.println("Invalid option, please enter 1/2/3");
+                    System.out.println("Invalid option, please enter 1/2/3/4");
                 }
 
             } catch (RuntimeException e) {
